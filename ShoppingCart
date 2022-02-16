@@ -1,0 +1,145 @@
+package ShoppingCartManager;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ *
+ * @author brian
+ */
+class ShoppingCart {
+    private String customerName;
+    private String currentDate;
+    private ArrayList<ItemToPurchase> cartItems = new ArrayList<ItemToPurchase>();
+    
+    public ShoppingCart(){
+        customerName="none";
+        currentDate="January 1, 2016";
+    }
+    
+    public ShoppingCart(String cN, String cD){
+        customerName=cN;
+        currentDate=cD;
+    }
+    
+    //Getter for customerName
+    public String getCustomerName()
+    {
+        return customerName;
+    }
+    
+    //Getter for currentDate
+    public String getCurrentDate()
+    {
+        return currentDate;
+    }
+    
+    public void addItem(ItemToPurchase item){
+        cartItems.add(item);
+    }
+    
+    public void removeItem(String name){
+        int trigger = 0;
+        
+        for(int i =0;i<cartItems.size();i++){
+            if(cartItems.get(i).getName().equalsIgnoreCase(name)){
+                cartItems.remove(i);
+                trigger++;
+                break;
+            }
+        }
+        
+        if(trigger==0){
+            System.out.println("Item not found in cart. Nothing removed.");
+        }else{
+            System.out.println("Item "+name+" has been removed from cart.");
+        }
+    }
+    
+    public void modifyItem(String name){
+        
+        int trigger =0;
+        int temp=0;
+        for(int i = 0;i<cartItems.size();i++){
+            if(cartItems.get(i).getName().equalsIgnoreCase(name)){
+                trigger++;
+                temp=i;
+                break;
+            }
+        }
+        
+        if(trigger==0){
+            System.out.println("Item not found in basket");
+        }else{
+            Scanner scnr = new Scanner(System.in);
+            System.out.println("What do you want to change?");
+            System.out.println("Input 'd' for Description");
+            System.out.println("Input 'q' for Quantity");
+            System.out.println("Input 'p' for Price");
+            char userInput = scnr.next().charAt(0);
+        
+            switch(userInput){
+                case 'd'->{
+                    System.out.println("Change to:");
+                    scnr.nextLine();
+                    String newDesc = scnr.nextLine();
+                    cartItems.get(temp).setDescription(newDesc);
+                }
+            
+                case 'q'->{
+                    System.out.println("Change to:");
+                    scnr.nextLine();
+                    int newQuantity = scnr.nextInt();
+                    cartItems.get(temp).setQuantity(newQuantity);
+                }
+            
+                case 'p'->{
+                    System.out.println("Change to:");
+                    scnr.nextLine();
+                    double newPrice = scnr.nextDouble();
+                    cartItems.get(temp).setPrice(newPrice);
+                }
+            }
+        }
+    }
+    
+    public void getNumItemsInCart(){
+        int trigger =0;
+        for(int i=0;i<cartItems.size();i++){
+            trigger++;
+        }
+        System.out.println("Number of items: "+trigger);
+    }
+    
+    public void getCostOfCart(){
+        double total=0;
+        for(int i=0;i<cartItems.size();i++){
+            total+=(cartItems.get(i).getPrice()*cartItems.get(i).getQuantity());
+        }
+        System.out.println("Total: $"+total);
+    }
+    
+    public void printTotal(){
+        System.out.println(getCustomerName()+"'s Shopping Cart - "+getCurrentDate());
+        getNumItemsInCart();
+        System.out.println();
+        
+        for(int i = 0;i<cartItems.size();i++){
+            cartItems.get(i).printItemCost();
+        }
+        
+        System.out.println();
+        getCostOfCart();
+    }
+    
+    public void printDescription(){
+        System.out.println(getCustomerName()+"'s Shopping Cart - "+getCurrentDate());
+        System.out.println();
+        System.out.println("Item Descriptions");
+        for(int i =0;i<cartItems.size();i++){
+            cartItems.get(i).printItemDescription();
+        }
+        
+    }
+    
+}
