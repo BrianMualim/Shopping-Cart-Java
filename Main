@@ -1,0 +1,110 @@
+package ShoppingCartManager;
+import java.util.Scanner;
+/**
+ *
+ * @author brian
+ */
+
+
+public class ShoppingCartManager {
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    public static void printMenu(ShoppingCart cart){
+        System.out.println("MENU");
+        System.out.println("a - Add item to cart");
+        System.out.println("d - Remove item from cart");
+        System.out.println("c - Modify item price/description/quantity");
+        System.out.println("i - Output items' descriptions");
+        System.out.println("o - Output shopping cart");
+        System.out.println("q - Quit");
+        
+        System.out.println("Choose an option: ");
+    }
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner scnr = new Scanner(System.in);
+        int mainTrigger=0;
+        
+        System.out.println("Enter customer's name");
+        String customerName = scnr.nextLine();
+        System.out.println("Enter today's date (date/month/year)");
+        String currentDate = scnr.nextLine();
+        
+        ShoppingCart p1 = new ShoppingCart(customerName,currentDate);
+        
+        System.out.println("Customer's name: "+p1.getCustomerName());
+        System.out.println("Today's date: "+p1.getCurrentDate());
+        
+        while(mainTrigger==0){
+            System.out.println();
+            printMenu(p1);
+            char userInput = scnr.next().charAt(0);
+            System.out.println();
+            switch (userInput){
+                case 'q'->{
+                    mainTrigger++;
+                    break;
+                }
+                
+                case 'a'->{
+                    System.out.println("ADD ITEM TO CART");
+                    System.out.println("Enter the item name: ");
+                    scnr.nextLine();
+                    String itemName = scnr.nextLine();
+                    System.out.println("Enter the item description: ");
+                    String itemDescription = scnr.nextLine();
+                    System.out.println("Enter the item price: ");
+                    double itemPrice = scnr.nextDouble();
+                    System.out.println("Enter the item quantity: ");
+                    int itemQuantity = scnr.nextInt();
+                
+                    ItemToPurchase item1 = new ItemToPurchase(itemName,itemPrice,itemQuantity,itemDescription);
+                    p1.addItem(item1);
+                }
+                
+                case 'd'->{
+                    System.out.println("REMOVE ITEM FROM CART");
+                    System.out.println("Enter the name of item to remove: ");
+                    scnr.nextLine();
+                    String itemName = scnr.nextLine();
+                    p1.removeItem(itemName);
+                }
+                
+                case 'c'->{
+                    
+                    
+                    System.out.println("CHANGE ITEM QUANTITY/PRICE/DESCRIPTION");
+                    System.out.println("Enter the item name: ");
+                    scnr.nextLine();
+                    String itemName = scnr.nextLine();
+                    
+                    p1.modifyItem(itemName);
+                    
+                    
+                }
+            
+                case 'i'->{
+                    System.out.println("OUTPUT ITEM's DESCRIPTION");
+                    p1.printDescription();
+                    break;
+                }
+            
+                case 'o'->{
+                    System.out.println("OUTPUT SHOPPING CART");
+                    p1.printTotal();
+                    break;
+                }
+                
+                default->{
+                    System.out.println("No option found for your input. Please try again.");
+                }
+            }
+        }
+        
+    }
+    
+}
