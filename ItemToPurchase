@@ -1,0 +1,77 @@
+package mualimbriancs55project4pt2;
+
+/**
+ *
+ * @author brian
+ */
+class ItemToPurchase {
+    private String itemName;
+    private double itemPrice;
+    private int itemQuantity;
+    private String itemDescription;
+    
+    public ItemToPurchase(){
+        itemName = "none";
+        itemPrice=0;
+        itemQuantity=0;
+        itemDescription = "none";
+    }
+    
+    public ItemToPurchase(String iN,double iP,int iQ, String iD){
+        itemName = iN;
+        itemPrice=iP;
+        itemQuantity=iQ;
+        itemDescription = iD;
+    }
+    
+    //Setter and getter for itemName
+    public void setName(String name)
+    {
+        this.itemName = name;
+    }
+    public String getName()
+    {
+        return itemName;
+    }
+    
+    //Setter and getter for itemPrice
+    public void setPrice(double price)
+    {
+        this.itemPrice = price;
+    }
+    public double getPrice()
+    {
+        return itemPrice;
+    }
+    
+    //Setter and getter for itemQuantity
+    public void setQuantity(int quantity)
+    {
+        this.itemQuantity = quantity;
+    }
+    public int getQuantity()
+    {
+        return itemQuantity;
+    }
+    
+    //Setter and getter for itemDescription
+    public void setDescription(String description)
+    {
+        this.itemDescription = description;
+    }
+    public String getDescription()
+    {
+        return itemDescription;
+    }
+    
+    //Prints item name followed by quantity price and subtotal
+    public void printItemCost(){
+        System.out.println(this.itemName + " "+this.itemQuantity+" @ $"+ 
+               this.itemPrice+" = "+(this.itemPrice*this.itemQuantity));
+    }
+    
+    //Prints item name followed by description
+    public void printItemDescription(){
+        System.out.println(this.itemName + ": "+this.itemDescription);
+    }
+}
